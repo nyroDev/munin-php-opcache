@@ -19,7 +19,6 @@ URL=${URL:-'http://localhost/php_opcache.php'}
 
 WGET=`which wget`;
 WGET_FLAGS="-Yoff"; # refer to wget manual, you may set extra parameters like disable proxy
-act=memory
 
 if [ "$1" = "autoconf" ]; then
         [ -z "$URL" ] && echo "no (edit URL config in header file !)" && exit 1
@@ -31,7 +30,7 @@ if [ "$1" = "suggest" ]; then
         exit 0
 fi
 
-if [ "$1" = "config" ] && [ "$act" = "memory" ]; then
+if [ "$1" = "config" ]; then
 
 REQUEST=${0##*/php_opcache_}
 
@@ -93,6 +92,6 @@ fi
 
 ###############################################################################
 
-[ -x $WGET ] && $WGET -q $WGET_FLAGS "$URL?act=$act" -O - && exit 0
+[ -x $WGET ] && $WGET -q $WGET_FLAGS "$URL" -O - && exit 0
 
 exit 1
