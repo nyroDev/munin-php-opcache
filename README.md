@@ -26,7 +26,9 @@ Add the following lines to the munin-node file, usually found in
 
     [php_opcache_*]
     user root
-    env.url http://www.example.com/php_opcache.php
+    env.URL http://www.example.com/php_opcache.php
+
+(the uppercase for URL is important.)
 
 There are 5 available graphs for this multi graph plugin:
 
