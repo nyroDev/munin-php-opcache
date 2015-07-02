@@ -25,7 +25,18 @@ if (function_exists('opcache_get_status')) {
 	);
 }
 
+$filters = array(
+	'memory'=>array('mem_used'=>true, 'mem_free'=>true, 'mem_wasted'=>true),
+	'hitrate'=>array('hitrate'=>true),
+	'hits'=>array('hits'=>true),
+	'misses'=>array('misses'=>true),
+	'keys'=>array('used_keys'=>true, 'free_keys'=>true),
+);
+
+if (isset($_GET['req']) && isset($filters[$_GET['req']]))
+	$output = array_intersect_key($output, $filters[$_GET['req']]);
+
 header('Content-Type: text/plain');
 foreach ($output as $key => $value) {
-        echo $key.'.value '.$value, "\n";
+	echo $key.'.value '.$value, "\n";
 }

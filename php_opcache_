@@ -30,68 +30,69 @@ if [ "$1" = "suggest" ]; then
         exit 0
 fi
 
-if [ "$1" = "config" ]; then
-
 REQUEST=${0##*/php_opcache_}
 
-if [ "$REQUEST" == "memory" ]; then
-	echo "graph_title OPCache Memory usage"
-	echo "graph_args -l 0 --base 1024"
-	echo "graph_vlabel Memory usage"
-	echo "graph_category php-opcache"
-	echo "graph_order mem_used mem_free mem_wasted"
-	echo "graph_total Total"
-	echo "mem_free.label Memory Free"
-	echo "mem_free.draw STACK"
-	echo "mem_free.min 0"
-	echo "mem_used.label Memory Used"
-	echo "mem_used.draw AREA"
-	echo "mem_used.min 0"
-	echo "mem_wasted.label Memory Wasted"
-	echo "mem_wasted.draw STACK"
-	echo "mem_wasted.min 0"
-elif [ "$REQUEST" == "hitrate" ]; then
-	echo "graph_title OPCache Hit rate"
-	echo "graph_args -l 0 --upper-limit 100"
-	echo "graph_vlabel Hit rate"
-	echo "graph_category php-opcache"
-	echo "hitrate.label Hitrate"
-	echo "hitrate.draw LINE2"
-	echo "hitrate.min 0"
-elif [ "$REQUEST" == "hits" ]; then
-	echo "graph_title OPCache Hits"
-	echo "graph_args -l 0"
-	echo "graph_vlabel Hits"
-	echo "graph_category php-opcache"
-	echo "hits.label Hits"
-	echo "hits.draw LINE2"
-	echo "hits.min 0"
-elif [ "$REQUEST" == "misses" ]; then
-	echo "graph_title OPCache Misses"
-	echo "graph_args -l 0"
-	echo "graph_vlabel Misses"
-	echo "graph_category php-opcache"
-	echo "misses.label Misses"
-	echo "misses.draw LINE2"
-	echo "misses.min 0"
-elif [ "$REQUEST" == "keys" ]; then
-	echo "graph_title OPCache Keys"
-	echo "graph_args -l 0"
-	echo "graph_vlabel Keys"
-	echo "graph_category php-opcache"
-	echo "graph_order used_keys free_keys"
-	echo "graph_total Total"
-	echo "used_keys.label Cached keys"
-	echo "used_keys.draw AREASTACK"
-	echo "free_keys.label Free keys"
-	echo "free_keys.draw AREASTACK"
-fi;
+if [ "$1" = "config" ]; then
 
-exit 0
+	if [ "$REQUEST" == "memory" ]; then
+		echo "graph_title OPCache Memory usage"
+		echo "graph_args -l 0 --base 1024"
+		echo "graph_vlabel Memory usage"
+		echo "graph_category php-opcache"
+		echo "graph_order mem_used mem_free mem_wasted"
+		echo "graph_total Total"
+		echo "mem_free.label Memory Free"
+		echo "mem_free.draw STACK"
+		echo "mem_free.min 0"
+		echo "mem_used.label Memory Used"
+		echo "mem_used.draw AREA"
+		echo "mem_used.min 0"
+		echo "mem_wasted.label Memory Wasted"
+		echo "mem_wasted.draw STACK"
+		echo "mem_wasted.min 0"
+	elif [ "$REQUEST" == "hitrate" ]; then
+		echo "graph_title OPCache Hit rate"
+		echo "graph_args -l 0 --upper-limit 100"
+		echo "graph_vlabel Hit rate"
+		echo "graph_category php-opcache"
+		echo "hitrate.label Hitrate"
+		echo "hitrate.draw LINE2"
+		echo "hitrate.min 0"
+	elif [ "$REQUEST" == "hits" ]; then
+		echo "graph_title OPCache Hits"
+		echo "graph_args -l 0"
+		echo "graph_vlabel Hits"
+		echo "graph_category php-opcache"
+		echo "hits.label Hits"
+		echo "hits.draw LINE2"
+		echo "hits.min 0"
+	elif [ "$REQUEST" == "misses" ]; then
+		echo "graph_title OPCache Misses"
+		echo "graph_args -l 0"
+		echo "graph_vlabel Misses"
+		echo "graph_category php-opcache"
+		echo "misses.label Misses"
+		echo "misses.draw LINE2"
+		echo "misses.min 0"
+	elif [ "$REQUEST" == "keys" ]; then
+		echo "graph_title OPCache Keys"
+		echo "graph_args -l 0"
+		echo "graph_vlabel Keys"
+		echo "graph_category php-opcache"
+		echo "graph_order used_keys free_keys"
+		echo "graph_total Total"
+		echo "used_keys.label Cached keys"
+		echo "used_keys.draw AREASTACK"
+		echo "free_keys.label Free keys"
+		echo "free_keys.draw AREASTACK"
+	fi;
+
+	exit 0
+
 fi
 
 ###############################################################################
 
-[ -x $WGET ] && $WGET -q $WGET_FLAGS "$URL" -O - && exit 0
+[ -x $WGET ] && $WGET -q $WGET_FLAGS "$URL?req=$REQUEST" -O - && exit 0
 
 exit 1
