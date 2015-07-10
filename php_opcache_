@@ -61,18 +61,20 @@ if [ "$1" = "config" ]; then
 	elif [ "$REQUEST" == "hits" ]; then
 		echo "graph_title OPCache Hits"
 		echo "graph_args -l 0"
-		echo "graph_vlabel Hits"
+		echo "graph_vlabel Hits per second"
 		echo "graph_category php-opcache"
 		echo "hits.label Hits"
 		echo "hits.draw LINE2"
+		echo "hits.type DERIVE"
 		echo "hits.min 0"
 	elif [ "$REQUEST" == "misses" ]; then
 		echo "graph_title OPCache Misses"
 		echo "graph_args -l 0"
-		echo "graph_vlabel Misses"
+		echo "graph_vlabel Misses per second"
 		echo "graph_category php-opcache"
 		echo "misses.label Misses"
 		echo "misses.draw LINE2"
+		echo "misses.type DERIVE"
 		echo "misses.min 0"
 	elif [ "$REQUEST" == "keys" ]; then
 		echo "graph_title OPCache Keys"
